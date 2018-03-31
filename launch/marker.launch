@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="hsrb_joy_controller" name="marker_saver" type="marker_data_saver.py" output="screen"/>
+	<node pkg="hsrb_joy_controller" name="marker_publisher" type="marker_publisher.py" />
+</launch>

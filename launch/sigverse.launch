@@ -1,0 +1,10 @@
+<launch>
+	<node pkg="joy" name="joy_node" type="joy_node">
+		<remap from="/joy" to="/hsrb_07/joy"/>
+		<param name="autorepeat_rate" value="10" />
+	</node>
+	<node pkg="hsrb_joy_controller" name="hsr7_arm_node" type="joy_arm_controller_mk1.py" />
+	<node pkg="hsrb_joy_controller" name="hsr7_interface_node" type="joy_interface_mk1.py" output="screen"/>
+	<node pkg="hsrb_joy_controller" name="hsr7_head_node" type="joy_head_controller_mk1.py" />
+	<node pkg="hsrb_joy_controller" name="hsr7_base_node" type="base_controller.py"/>
+</launch>

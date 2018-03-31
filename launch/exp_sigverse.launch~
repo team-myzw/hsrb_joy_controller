@@ -1,0 +1,21 @@
+<launch>
+	<node pkg="joy" name="joy_node" type="joy_node">
+		<remap from="/joy" to="/hsrb_07/joy"/>
+		<param name="autorepeat_rate" value="10" />
+	</node>
+	<node pkg="hsrb_joy_controller" name="hsr7_arm_node" type="joy_arm_controller_mk1.py" />
+	<node pkg="hsrb_joy_controller" name="hsr7_interface_node" type="joy_exp.py" output="screen"/>
+	<node pkg="hsrb_joy_controller" name="hsr7_head_node" type="joy_head_controller_mk1.py" />
+	<node pkg="hsrb_joy_controller" name="hsr7_base_node" type="base_controller.py"/>
+	<node pkg="image_view" name="hsr_image_viewer" type="image_view">
+		<remap from="/image" to="/hsrb/head_rgbd_sensor/rgb/image_raw"/>
+	</node>
+	<node pkg="hsrb_joy_controller" name="hsr_hand_camera_rotate" type="hand_camera_rotate.py"/>
+	<node pkg="image_view" name="hsr_hand_camera_viewer" type="image_view">
+		<remap from="/image" to="/hsr7/hand_camera/rot_image_raw"/>
+	</node>
+	<node pkg="image_view" name="hsr_hand_stereo_camera_viewer" type="image_view">
+		<remap from="/image" to="/hsrb/head_l_stereo_camera/image_raw"/>
+	</node>
+	<node pkg="hsrb_joy_controller" name="hsr_hand_state" type="hand_state_publisher2.py"/>
+</launch>

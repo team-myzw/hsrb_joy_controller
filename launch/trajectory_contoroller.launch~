@@ -1,0 +1,6 @@
+<launch>  
+  <node name="omni_controller" pkg="hsrb_joy_controller" type="omni_controller_sig.py" />
+  <node name="arm_controller" pkg="hsrb_joy_controller" type="arm_controller_sig.py" />
+  <node name="head_controller" pkg="hsrb_joy_controller" type="head_controller_sig.py" />
+  <node name="hand_controller" pkg="hsrb_joy_controller" type="hand_controller_sig.py" />
+</launch>
