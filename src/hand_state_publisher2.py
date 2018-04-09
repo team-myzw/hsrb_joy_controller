@@ -27,7 +27,7 @@ class PublishHandState(object):
         rospy.Subscriber("/hsrb/wrist_wrench/compensated", WrenchStamped, self.cb_wrench_comp,queue_size=10)
 
         self.sub = rospy.Subscriber("/hsrb_07/joy", Joy, self.state_set, queue_size=10)
-        
+
 #        self.sub = rospy.Subscriber("/hsrb/joint_states", JointState, self.state_set, queue_size=10)
         self.pub = rospy.Publisher("/hsr7/hand_states", JointState, queue_size=10)
 #        self.pub_vision_info = rospy.Publisher("/hsr7/object_pos", Point, queue_size=10)
@@ -54,18 +54,18 @@ class PublishHandState(object):
         self._wrench_y_c = y
         self._wrench_z_c = z
         self._wrench_com_c = np.sqrt(np.power(x,2)+np.power(y,2)+np.power(z,2))
-        
+
 
     def state_set(self,data):
         joint = JointState()
-        
+
 #        map2hand = self.buf.lookup_transform_full()
         try:
             map2hand = self.buf.lookup_transform("odom", "hand_palm_link",rospy.Time(0),rospy.Duration(3.0))
 #            map2hand = self.buf.lookup_transform_full("odom",data.header.stamp, "hand_palm_link",data.header.stamp, "odom")
         except:
             return False
-        if data.buttons[1] == 1:            
+        if data.buttons[1] == 1:
             self._hand = 0
             print "close"
         elif data.buttons[2] == 1:
@@ -79,7 +79,7 @@ class PublishHandState(object):
 #        if hand_state ==1 and self.old ==0:
 #            point.x, point.y, point.z = map2hand.transform.translation.x, map2hand.transform.translation.y, map2hand.transform.translation.z
 #            self.pub_vision_info.publish(point)
-        
+
         position = [map2hand.transform.translation.x, map2hand.transform.translation.y, map2hand.transform.translation.z, hand_state,
                     map2hand.transform.rotation.x, map2hand.transform.rotation.y, map2hand.transform.rotation.z, map2hand.transform.rotation.w,
                     self._wrench_x, self._wrench_y, self._wrench_z, self._wrench_com,
@@ -115,7 +115,7 @@ class PublishHandState(object):
 #                else:
 #                    plt.xlim(len(t)-100,len(t))
 #                    plt.ylim(x[len(t)-100:len(t)-1].min()-0.1,x[len(t)-100:len(t)-1].max()+0.1)
-#                    
+#
 #                plt.subplot(4,1,2)
 #                b = plt.plot(range(len(y)),y,"g-")
 #                plt.ylabel("y")
@@ -148,9 +148,9 @@ class PublishHandState(object):
 #                    plt.xlim(len(t)-100,len(t))
 #
 #                plt.pause(.01)
-        
+
 if __name__ == "__main__":
     rospy.init_node("handstate_publish")
     a = PublishHandState()
-    a.run()
+    # a.run()
     rospy.spin()
